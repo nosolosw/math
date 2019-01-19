@@ -34,6 +34,10 @@ module.exports = function(expression) {
       tokens.push({ order, type: TOKEN_TYPES.MULTIPLY, literal: char });
       index++;
       order++;
+    } else if (char === "/") {
+      tokens.push({ order, type: TOKEN_TYPES.DIVIDE, literal: char });
+      index++;
+      order++;
     } else if (isNumber(char)) {
       let number = char;
       index++;

@@ -1,4 +1,5 @@
 module.exports = {
+  DIVIDE: "DIVIDE",
   MULTIPLY: "MULTIPLY",
   NUMBER: "NUMBER",
   SUBTRACT: "SUBTRACT",

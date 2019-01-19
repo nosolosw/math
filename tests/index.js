@@ -25,6 +25,11 @@ function testSum() {
     { order: 1, type: TOKEN_TYPES.MULTIPLY, literal: "*" },
     { order: 2, type: TOKEN_TYPES.NUMBER, literal: "3" }
   ]);
+  assert.deepStrictEqual(engine("9 / 3"), [
+    { order: 0, type: TOKEN_TYPES.NUMBER, literal: "9" },
+    { order: 1, type: TOKEN_TYPES.DIVIDE, literal: "/" },
+    { order: 2, type: TOKEN_TYPES.NUMBER, literal: "3" }
+  ]);
 }
 
 testSum();
