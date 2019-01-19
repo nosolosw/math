@@ -13,29 +13,36 @@ const TOKEN_TYPES = require("./token-types");
  * }
  *
  */
-module.exports = function(input) {
+module.exports = function(expression) {
   const tokens = [];
-  let position = 0;
+  let index = 0;
   let order = 0;
-  const isNumber = char => Number.isInteger(+char);
-  const expression = input.replace(/ /g, "");
-  while (position <= expression.length) {
-    let char = expression.charAt(position);
-    if (char === "+") {
+  const isNumber = char => char !== " " && Number.isInteger(+char);
+  while (index <= expression.length) {
+    let char = expression.charAt(index);
+    if (char === " ") {
+      index++;
+    } else if (char === "+") {
       tokens.push({ order, type: TOKEN_TYPES.SUM, literal: char });
-      position++;
+      index++;
+      order++;
+    } else if (char === "*") {
+      tokens.push({ order, type: TOKEN_TYPES.MULTIPLY, literal: char });
+      index++;
       order++;
     } else if (isNumber(char)) {
       let number = char;
-      position++;
-      char = expression.charAt(position);
-      while (isNumber(char) && position <= expression.length) {
+      index++;
+      char = expression.charAt(index);
+      while (isNumber(char) && index <= expression.length) {
         number = number + char;
-        position++;
+        index++;
         char = expression.charAt(char);
       }
       tokens.push({ order, type: TOKEN_TYPES.NUMBER, literal: number });
       order++;
+    } else {
+      throw Error(`Unrecognized ${char} at position ${index}`);
     }
   }
   return tokens;
