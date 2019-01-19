@@ -20,37 +20,45 @@ module.exports = function(expression) {
   const isNumber = char => char !== " " && Number.isInteger(+char);
   while (index <= expression.length) {
     let char = expression.charAt(index);
-    if (char === " ") {
-      index++;
-    } else if (char === "+") {
-      tokens.push({ order, type: TOKEN_TYPES.ADD, literal: char });
-      index++;
-      order++;
-    } else if (char === "-") {
-      tokens.push({ order, type: TOKEN_TYPES.SUBTRACT, literal: char });
-      index++;
-      order++;
-    } else if (char === "*") {
-      tokens.push({ order, type: TOKEN_TYPES.MULTIPLY, literal: char });
-      index++;
-      order++;
-    } else if (char === "/") {
-      tokens.push({ order, type: TOKEN_TYPES.DIVIDE, literal: char });
-      index++;
-      order++;
-    } else if (isNumber(char)) {
-      let number = char;
-      index++;
-      char = expression.charAt(index);
-      while (isNumber(char) && index <= expression.length) {
-        number = number + char;
+    switch (char) {
+      case " ":
         index++;
-        char = expression.charAt(char);
-      }
-      tokens.push({ order, type: TOKEN_TYPES.NUMBER, literal: number });
-      order++;
-    } else {
-      throw Error(`Unrecognized ${char} at position ${index}`);
+        break;
+      case "+":
+        tokens.push({ order, type: TOKEN_TYPES.ADD, literal: char });
+        index++;
+        order++;
+        break;
+      case "-":
+        tokens.push({ order, type: TOKEN_TYPES.SUBTRACT, literal: char });
+        index++;
+        order++;
+        break;
+      case "*":
+        tokens.push({ order, type: TOKEN_TYPES.MULTIPLY, literal: char });
+        index++;
+        order++;
+        break;
+      case "/":
+        tokens.push({ order, type: TOKEN_TYPES.DIVIDE, literal: char });
+        index++;
+        order++;
+        break;
+      default:
+        if (isNumber(char)) {
+          let number = char;
+          index++;
+          char = expression.charAt(index);
+          while (isNumber(char) && index <= expression.length) {
+            number = number + char;
+            index++;
+            char = expression.charAt(char);
+          }
+          tokens.push({ order, type: TOKEN_TYPES.NUMBER, literal: number });
+          order++;
+        } else {
+          throw Error(`Unrecognized ${char} at position ${index}`);
+        }
     }
   }
   return tokens;
