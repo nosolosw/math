@@ -8,7 +8,7 @@ const TOKEN_TYPES = require("./token-types");
  *
  * @return {Array} List of tokens from expression. Token shape:
  * { order: the order of the token in the expression (0-based number),
- *   type: one of TOKEN_TYPES: 'SUM', 'NUMBER'.
+ *   type: one of TOKEN_TYPES: 'ADD', 'SUBTRACT', 'MULTIPLY', 'DIVIDE', 'NUMBER'.
  *   literal: the value of token as it appears on the expression,
  * }
  *
@@ -23,7 +23,7 @@ module.exports = function(expression) {
     if (char === " ") {
       index++;
     } else if (char === "+") {
-      tokens.push({ order, type: TOKEN_TYPES.SUM, literal: char });
+      tokens.push({ order, type: TOKEN_TYPES.ADD, literal: char });
       index++;
       order++;
     } else if (char === "-") {
