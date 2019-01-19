@@ -1,5 +1,6 @@
 module.exports = {
-  SUM: "SUM",
   MULTIPLY: "MULTIPLY",
-  NUMBER: "NUMBER"
+  NUMBER: "NUMBER",
+  SUBTRACT: "SUBTRACT",
+  SUM: "SUM"
 };

@@ -26,6 +26,10 @@ module.exports = function(expression) {
       tokens.push({ order, type: TOKEN_TYPES.SUM, literal: char });
       index++;
       order++;
+    } else if (char === "-") {
+      tokens.push({ order, type: TOKEN_TYPES.SUBTRACT, literal: char });
+      index++;
+      order++;
     } else if (char === "*") {
       tokens.push({ order, type: TOKEN_TYPES.MULTIPLY, literal: char });
       index++;
